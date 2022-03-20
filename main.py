@@ -6,3 +6,5 @@ print(encoded_msg)
 print("Decoding")
 decoded_msg = morse().decode(encoded_msg)
 print(decoded_msg)
+
+morse().printTree()

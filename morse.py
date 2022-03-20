@@ -11,6 +11,9 @@ class Node:
 class morse:
     def __init__(self):
         self.letters = "ETIANMSURWDKGOHVF*L*PJBXCYZQ**"
+        self.length = len(self.letters)
+        self.COUNT = [2]
+        self.getList = []
         self.tree = Node("START")
         nexts = []
         self.current = self.tree
@@ -33,7 +36,6 @@ class morse:
         if root == None:
             return False
         elif root.value == text:
-            # print(self.encoded)
             return True
         else:
             if self.morse_encode(text, root.left, values) == True:
@@ -56,7 +58,6 @@ class morse:
 
         return " ".join(values)
 
-    
     def decode(self, text):
         self.decoded = ""
         # get the whole binary tree starting from the root
@@ -78,3 +79,24 @@ class morse:
             self.decoded += self.node.value
             
         return self.decoded
+
+    def getNode(self, root, space, let):
+        if root == None:
+            return
+        
+        space += self.COUNT[0]
+        for i in range(self.COUNT[0], space):
+            print(end = " ")
+        # self.getList.append(root.value)
+        print(let + root.value)
+        self.getNode(root.left, space,let="l - ")
+        # process right child
+        self.getNode(root.right, space, let="r - ")
+
+    def printTree(self):
+
+        self.getNode(self.tree, 0, "r - ")
+
+            
+            
+
