@@ -1,9 +1,5 @@
-import morse
+import assert_tests
 
 if __name__ == '__main__':
-    e = morse.encode('US')
-    print(e)
-    d = morse.decode('..- ...')
-
-    assert morse.encode('us') == '..- ...', "Should be ..-"
-    assert morse.decode('..- ...') == 'us', "Should be ..-"
+    assert_tests.test_encode_us()
+    print('Everything passed')
