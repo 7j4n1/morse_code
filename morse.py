@@ -8,95 +8,93 @@ class Node:
         self.value = value # for denoting a value in a node
 
 
-class morse:
-    def __init__(self):
-        self.letters = "ETIANMSURWDKGOHVF*L*PJBXCYZQ**"
-        self.length = len(self.letters)
-        self.COUNT = [2]
-        self.getList = []
-        self.tree = Node("START")
-        nexts = []
-        self.current = self.tree
-        for l in self.letters:
-            if self.current.left == None:
-                self.current.left = Node(l)
-            else:
-                if self.current.right == None:
-                    self.current.right = Node(l)
-                else:
-                    nexts.append(self.current.left)
-                    nexts.append(self.current.right)
-                    # print(nexts[0].value)
-                    self.current = nexts.pop(0)
-                    self.current.left = Node(l)
-            # print(self.current.value)
-        
 
-    def morse_encode(self, text, root, values):
-        if root == None:
-            return False
-        elif root.value == text:
-            return True
+
+letters = "ETIANMSURWDKGOHVF*L*PJBXCYZQ**"
+length = len(letters)
+COUNT = [2]
+getList = []
+tree = Node("START")
+nexts = []
+current = tree
+for l in letters.casefold():
+    if current.left == None:
+        current.left = Node(l)
+    else:
+        if current.right == None:
+            current.right = Node(l)
         else:
-            if self.morse_encode(text, root.left, values) == True:
-                values.insert(0,".")
-                root = root.left
-                return True
-            elif self.morse_encode(text, root.right, values) == True:
-                values.insert(0,"-")
-                root = root.right
-                return True
+            nexts.append(current.left)
+            nexts.append(current.right)
+            # print(nexts[0].value)
+            current = nexts.pop(0)
+            current.left = Node(l)
+    # print(current.value)
         
-    def encode(self, text):
-        values = []
-        for char in text:
-            value = []
-            root = self.tree
-            # gg = comp_tree.decode("..- ...")
-            self.morse_encode(char, root, value)
-            values.append("".join(value))
 
-        return " ".join(values)
-
-    def decode(self, text):
-        self.decoded = ""
-        # get the whole binary tree starting from the root
-        # set as current tree node
+def morse_encode(text, root, values):
+    if root == None:
+        return False
+    elif root.value == text:
+        return True
+    else:
+        if morse_encode(text, root.left, values) == True:
+            values.insert(0,".")
+            root = root.left
+            return True
+        elif morse_encode(text, root.right, values) == True:
+            values.insert(0,"-")
+            root = root.right
+            return True
         
-        self.encoded_values = text.split(' ')
-        # iterate through each character either '.' or '-'
-        # if the current character is '.' go through the left node
-        # but if it is '-', go through the right node
+def encode(text):
+    values = []
+    for char in text.casefold():
+        value = []
+        root = tree
+        morse_encode(char, root, value)
+        values.append("".join(value))
+
+    return " ".join(values)
+
+def decode(text):
+    decoded = ""
+    # get the whole binary tree starting from the root
+    # set as current tree node
+    
+    encoded_values = text.split(' ')
+    # iterate through each character either '.' or '-'
+    # if the current character is '.' go through the left node
+    # but if it is '-', go through the right node
+    
+    # return the node value after done decoding
+    for encoded in encoded_values:
+        node = tree
+        for char in encoded:
+            if char == '.':
+                node = node.left
+            else:
+                node = node.right
+        decoded += node.value
         
-        # return the node value after done decoding
-        for encoded in self.encoded_values:
-            self.node = self.tree
-            for char in encoded:
-                if char == '.':
-                    self.node = self.node.left
-                else:
-                    self.node = self.node.right
-            self.decoded += self.node.value
-            
-        return self.decoded
+    return decoded
 
-    def getNode(self, root, space, let):
-        if root == None:
-            return
-        
-        space += self.COUNT[0]
-        for i in range(self.COUNT[0], space):
-            print(end = " ")
-        # self.getList.append(root.value)
-        print(let + root.value)
-        self.getNode(root.left, space,let="l - ")
-        # process right child
-        self.getNode(root.right, space, let="r - ")
+def getNode(root, space, let):
+    if root == None:
+        return
+    
+    space += COUNT[0]
+    for i in range(COUNT[0], space):
+        print(end = " ")
+    # getList.append(root.value)
+    print(let + root.value)
+    getNode(root.left, space,let="l - ")
+    # process right child
+    getNode(root.right, space, let="r - ")
 
-    def printTree(self):
+def printTree():
 
-        self.getNode(self.tree, 0, "r - ")
+    getNode(tree, 0, "r - ")
 
-            
             
 

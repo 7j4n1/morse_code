@@ -1,10 +1,9 @@
-from morse import morse
+import morse
 
-print("Encoding:")
-encoded_msg = morse().encode('USE')
-print(encoded_msg)
-print("Decoding")
-decoded_msg = morse().decode(encoded_msg)
-print(decoded_msg)
+if __name__ == '__main__':
+    e = morse.encode('US')
+    print(e)
+    d = morse.decode('..- ...')
 
-morse().printTree()
+    assert morse.encode('us') == '..- ...', "Should be ..-"
+    assert morse.decode('..- ...') == 'us', "Should be ..-"
