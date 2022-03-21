@@ -10,7 +10,7 @@ class Node:
 
 
 
-letters = "ETIANMSURWDKGOHVF*L*PJBXCYZQ**"
+letters = "ETIANMSURWDKGOHVF*L*PJBXCYZQ**54*3*¿?2&*+****16=/***(*7***8*90"
 length = len(letters)
 COUNT = [2]
 getList = []
@@ -30,8 +30,30 @@ for l in letters.casefold():
             current = nexts.pop(0)
             current.left = Node(l)
     # print(current.value)
-        
+# add 6th level nodes
+sixlevel = "*"*13
+sixlevel += "_****\"**.********\'**-********;!*)***¡*,****:*******"
+sevlevel = sixlevel + "*********$"
 
+for c in sevlevel:
+    if current.left == None:
+        current.left = Node(c)
+    else:
+        if current.right == None:
+            current.right = Node(c)
+        else:
+            nexts.append(current.left)
+            nexts.append(current.right)
+            # print(nexts[0].value)
+            current = nexts.pop(0)
+            current.left = Node(c)
+
+'''
+    Recursive function to encode text
+        text - str | character(s) to encode
+        root - Node | Binary tree Node
+        values - 
+'''
 def morse_encode(text, root, values):
     if root == None:
         return False
@@ -57,6 +79,10 @@ def encode(text):
 
     return " ".join(values)
 
+'''
+    Function to decode string text
+    text - str | text to decode
+'''
 def decode(text):
     decoded = ""
     # get the whole binary tree starting from the root
@@ -78,7 +104,13 @@ def decode(text):
         decoded += node.value
         
     return decoded
-
+'''
+    Get and print each node from the tree
+    with the arguments of three variables
+    root - binary tree Nodes
+    space - initial root should be 0
+    let - letter to denote the root node (r - )
+'''
 def getNode(root, space, let):
     if root == None:
         return
@@ -92,9 +124,13 @@ def getNode(root, space, let):
     # process right child
     getNode(root.right, space, let="r - ")
 
+# function to print Binary Tree Stack
 def printTree():
-
+    # call the get Node function to print each node
+    # and set the root node first.
     getNode(tree, 0, "r - ")
 
-            
+# print the start morse 
+if __name__ == '__main__':
+    printTree()  
 
