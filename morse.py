@@ -7,16 +7,35 @@ class Node:
         self.right = right # for denoting a right child node
         self.value = value # for denoting a value in a node
 
+'''
+    Function to insert key into a tree
+'''
+def insert_node(root, key,lists=[]):
+    
+    # if root == None:
+    #     root = Node(key)
+    # else:
+    if root.left == None:
+        root.left = Node(key)
+    else:
+        if root.right == None:
+            root.right = Node(key)
+        else:
+            lists.append(root.left)
+            lists.append(root.right)
+            root = lists.pop(0)
+            root.left = Node(key)
 
-
-
+# The keys to be insert into nodes tree
+# where the * character denotes empty node key
 letters = "ETIANMSURWDKGOHVF*L*PJBXCYZQ**54*3*¿?2&*+****16=/***(*7***8*90"
-length = len(letters)
 COUNT = [2]
-getList = []
+# Initiate a root node with key (START)
 tree = Node("START")
 nexts = []
+# instantiate the current tree
 current = tree
+# iterating the key and inserting it into the binary tree
 for l in letters.casefold():
     if current.left == None:
         current.left = Node(l)
@@ -26,15 +45,14 @@ for l in letters.casefold():
         else:
             nexts.append(current.left)
             nexts.append(current.right)
-            # print(nexts[0].value)
             current = nexts.pop(0)
             current.left = Node(l)
-    # print(current.value)
+
 # add 6th level nodes
 sixlevel = "*"*13
 sixlevel += "_****\"**.********\'**-********;!*)***¡*,****:*******"
 sevlevel = sixlevel + "*********$"
-
+# iterate through the sixth and seventh key and add it to the Tree
 for c in sevlevel:
     if current.left == None:
         current.left = Node(c)
@@ -44,7 +62,7 @@ for c in sevlevel:
         else:
             nexts.append(current.left)
             nexts.append(current.right)
-            # print(nexts[0].value)
+            # remove the left tree from the list
             current = nexts.pop(0)
             current.left = Node(c)
 
@@ -68,8 +86,12 @@ def morse_encode(text, root, values):
             values.insert(0,"-")
             root = root.right
             return True
-        
+'''
+    Decoding function which calls the recursive morse_encode function
+    and then concatenate the string
+'''
 def encode(text):
+
     values = []
     for char in text.casefold():
         value = []
@@ -88,12 +110,13 @@ def decode(text):
     # get the whole binary tree starting from the root
     # set as current tree node
     
+    # split the string if it is more than one character
     encoded_values = text.split(' ')
     # iterate through each character either '.' or '-'
     # if the current character is '.' go through the left node
     # but if it is '-', go through the right node
     
-    # return the node value after done decoding
+    
     for encoded in encoded_values:
         node = tree
         for char in encoded:
@@ -102,13 +125,13 @@ def decode(text):
             else:
                 node = node.right
         decoded += node.value
-        
+    # return the decoded string
     return decoded
 '''
     Get and print each node from the tree
     with the arguments of three variables
     root - binary tree Nodes
-    space - initial root should be 0
+    space - initial root should be 0 which indicate the spacing unit
     let - letter to denote the root node (r - )
 '''
 def getNode(root, space, let):
@@ -118,10 +141,10 @@ def getNode(root, space, let):
     space += COUNT[0]
     for i in range(COUNT[0], space):
         print(end = " ")
-    # getList.append(root.value)
     print(let + root.value)
+    # process the left child(s)
     getNode(root.left, space,let="l - ")
-    # process right child
+    # process right child(s)
     getNode(root.right, space, let="r - ")
 
 # function to print Binary Tree Stack
@@ -130,7 +153,9 @@ def printTree():
     # and set the root node first.
     getNode(tree, 0, "r - ")
 
-# print the start morse 
+
+
+# print the Morse Binary Tree if called directly
 if __name__ == '__main__':
     printTree()  
 
