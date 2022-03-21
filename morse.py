@@ -12,19 +12,22 @@ class Node:
 '''
 def insert_node(root, key,lists=[]):
     
-    # if root == None:
-    #     root = Node(key)
-    # else:
-    if root.left == None:
-        root.left = Node(key)
+    if root == None:
+        root = Node(key)
+        return root
     else:
-        if root.right == None:
-            root.right = Node(key)
-        else:
-            lists.append(root.left)
-            lists.append(root.right)
-            root = lists.pop(0)
+        if root.left == None:
             root.left = Node(key)
+            return root
+        else:
+            if root.right == None:
+                root.right = Node(key)
+            else:
+                lists.append(root.left)
+                lists.append(root.right)
+                root = lists.pop(0)
+                root.left = Node(key)
+            return root
 
 # The keys to be insert into nodes tree
 # where the * character denotes empty node key
@@ -32,39 +35,21 @@ letters = "ETIANMSURWDKGOHVF*L*PJBXCYZQ**54*3*¿?2&*+****16=/***(*7***8*90"
 COUNT = [2]
 # Initiate a root node with key (START)
 tree = Node("START")
-nexts = []
+# nexts = []
 # instantiate the current tree
 current = tree
-# iterating the key and inserting it into the binary tree
+# iterating the keys and inserting it into the binary tree
 for l in letters.casefold():
-    if current.left == None:
-        current.left = Node(l)
-    else:
-        if current.right == None:
-            current.right = Node(l)
-        else:
-            nexts.append(current.left)
-            nexts.append(current.right)
-            current = nexts.pop(0)
-            current.left = Node(l)
+    current = insert_node(current, l)
 
-# add 6th level nodes
+# add 6th & 7th level nodes
 sixlevel = "*"*13
 sixlevel += "_****\"**.********\'**-********;!*)***¡*,****:*******"
 sevlevel = sixlevel + "*********$"
+
 # iterate through the sixth and seventh key and add it to the Tree
 for c in sevlevel:
-    if current.left == None:
-        current.left = Node(c)
-    else:
-        if current.right == None:
-            current.right = Node(c)
-        else:
-            nexts.append(current.left)
-            nexts.append(current.right)
-            # remove the left tree from the list
-            current = nexts.pop(0)
-            current.left = Node(c)
+    current = insert_node(current, c)
 
 '''
     Recursive function to encode text
@@ -158,4 +143,6 @@ def printTree():
 # print the Morse Binary Tree if called directly
 if __name__ == '__main__':
     printTree()  
+    # g = Node(2)
+    # insert_node(g,6)
 
