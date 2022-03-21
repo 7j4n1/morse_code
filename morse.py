@@ -13,8 +13,7 @@ class Node:
 def insert_node(root, key,lists=[]):
     
     if root == None:
-        root = Node(key)
-        return root
+        return Node(key)
     else:
         if root.left == None:
             root.left = Node(key)
@@ -28,6 +27,46 @@ def insert_node(root, key,lists=[]):
                 root = lists.pop(0)
                 root.left = Node(key)
             return root
+# function to check if a root is having a successor node
+def successor(root):
+    # check the right node
+    root = root.right
+    # check all the left child nodes
+    while root.left:
+        root = root.left
+    # return root node value
+    return root.value
+def predecessor(root):
+    # check the left node
+    root = root.left
+    # check all the right child nodes
+    while root.right:
+        root = root.right
+    # return root node value
+    return root.value
+
+'''
+ Function to delete node from Binary Tree
+ root - TreeNode
+ key - value to be deleted from the TreeNode
+
+ return Node
+'''
+def delete_node(root, key):
+    if not root:
+        return None
+    
+    if not (root.left or root.right):
+        root = None
+    elif root.right:
+        root.value = successor(root)
+        root.right = delete_node(root.right, root.value)
+    else:
+        root.value = predecessor(root)
+        root.left = delete_node(root.left, root.value)
+
+    return root
+
 
 # The keys to be insert into nodes tree
 # where the * character denotes empty node key
@@ -119,7 +158,7 @@ def decode(text):
     space - initial root should be 0 which indicate the spacing unit
     let - letter to denote the root node (r - )
 '''
-def getNode(root, space, let):
+def getTree(root, space=0, let="r - "):
     if root == None:
         return
     
@@ -128,15 +167,15 @@ def getNode(root, space, let):
         print(end = " ")
     print(let + root.value)
     # process the left child(s)
-    getNode(root.left, space,let="l - ")
+    getTree(root.left, space,let="l - ")
     # process right child(s)
-    getNode(root.right, space, let="r - ")
+    getTree(root.right, space, let="r - ")
 
 # function to print Binary Tree Stack
 def printTree():
     # call the get Node function to print each node
     # and set the root node first.
-    getNode(tree, 0, "r - ")
+    getTree(tree)
 
 
 
