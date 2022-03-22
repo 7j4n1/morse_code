@@ -1,14 +1,20 @@
 # morse_code
 Morse Code Encoder and Decoder Using Binary Tree
 
-The morse code binary tree in the program is explicitl
+The morse code binary tree in the program is explicitly build inside the morse module.
 
 To make use of the available functions, morse module has to be import into the main environment.
 
 ```python
 import morse
 ```
-### Instan
+the morse tree nodes can be called using the following method.
+```
+morse.tree
+```
+It points to the morse binary tree
+
+### Instantiate
 This program provides three functions:
 
 ### Encoder
