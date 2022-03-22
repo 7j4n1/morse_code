@@ -7,6 +7,31 @@ class Node:
         self.right = right # for denoting a right child node
         self.value = value # for denoting a value in a node
 
+
+# find a key
+def find(currentNode, key):
+    if currentNode is None:
+        return False
+    else:
+        cursor = currentNode
+        while True:
+            if key < cursor.value:
+                if cursor.value == key:
+                    return True
+                if cursor.left is None:
+                    return False
+                else:
+                    cursor = cursor.left
+            if key >= cursor.value:
+                if cursor.value == key:
+                    return True
+                if cursor.right is None:
+                    return False
+                else:
+                    cursor = cursor.right
+    
+
+
 '''
     Function to insert key into a tree
 '''
@@ -27,24 +52,20 @@ def insert_node(root, key,lists=[]):
                 root = lists.pop(0)
                 root.left = Node(key)
             return root
-# function to check if a root is having a successor node
-def successor(root):
-    # check the right node
-    root = root.right
-    # check all the left child nodes
-    while root.left:
-        root = root.left
-    # return root node value
-    return root.value
-def predecessor(root):
-    # check the left node
-    root = root.left
-    # check all the right child nodes
-    while root.right:
-        root = root.right
-    # return root node value
-    return root.value
 
+'''
+ Function to get minimum value node from Binary Tree
+ node - TreeNode
+
+ return Node
+'''
+
+def minValueNode(node):
+    current = node
+
+    while (current.left is not None):
+        current = current.left
+    return current
 '''
  Function to delete node from Binary Tree
  root - TreeNode
@@ -52,43 +73,56 @@ def predecessor(root):
 
  return Node
 '''
-def delete_node(root, key):
-    if not root:
-        return None
+def delete(root, key):
+    if root is None:
+        return root
     
-    if not (root.left or root.right):
-        root = None
-    elif root.right:
-        root.value = successor(root)
-        root.right = delete_node(root.right, root.value)
+    if key < root.value:
+        root.left = delete(root.left, key)
+    elif key > root.value:
+        root.right = delete(root.right, key)
     else:
-        root.value = predecessor(root)
-        root.left = delete_node(root.left, root.value)
+        if root.left is None:
+            temp = root.right
+            root = None
+            return temp
+        elif root.right is None:
+            temp = root.left
+            root = None
+            return temp
+        
+        temp = minValueNode(root.right)
+        root.value = temp.value
 
+        root.right = delete(root.right, temp.value)
+    
     return root
-
 
 # The keys to be insert into nodes tree
 # where the * character denotes empty node key
-letters = "ETIANMSURWDKGOHVF*L*PJBXCYZQ**54*3*¿?2&*+****16=/***(*7***8*90"
+letters = "ETIANMSURWDKGOHVF*L*PJBXCYZQ**54*3*¿?2&*+****16=/***(*7***8*90**************_****\"**.********\'**-********;!*)***¡*,****:****************$"
 COUNT = [2]
 # Initiate a root node with key (START)
-tree = Node("START")
-# nexts = []
-# instantiate the current tree
-current = tree
-# iterating the keys and inserting it into the binary tree
-for l in letters.casefold():
-    current = insert_node(current, l)
+MorseTree = Node("START")
+nexts = []
+# instantiate the current MorseTree
+node = MorseTree
+# iterating the keys and inserting it into the binary MorseTree
+for l in letters:
+    if l.islower():
+        l = l.upper()
 
-# add 6th & 7th level nodes
-sixlevel = "*"*13
-sixlevel += "_****\"**.********\'**-********;!*)***¡*,****:*******"
-sevlevel = sixlevel + "*********$"
-
-# iterate through the sixth and seventh key and add it to the Tree
-for c in sevlevel:
-    current = insert_node(current, c)
+    if node.left == None:
+        node.left = Node(l)
+    else:
+        if node.right == None:
+            node.right = Node(l)
+        else:
+            nexts.append(node.left)
+            nexts.append(node.right)
+            node = nexts.pop(0)
+            node.left = Node(l)
+        
 
 '''
     Recursive function to encode text
@@ -119,7 +153,7 @@ def encode(text):
     values = []
     for char in text.casefold():
         value = []
-        root = tree
+        root = MorseTree
         morse_encode(char, root, value)
         values.append("".join(value))
 
@@ -142,7 +176,7 @@ def decode(text):
     
     
     for encoded in encoded_values:
-        node = tree
+        node = MorseTree
         for char in encoded:
             if char == '.':
                 node = node.left
@@ -165,7 +199,7 @@ def getTree(root, space=0, let="r - "):
     space += COUNT[0]
     for i in range(COUNT[0], space):
         print(end = " ")
-    print(let + root.value)
+    print(root.value)
     # process the left child(s)
     getTree(root.left, space,let="l - ")
     # process right child(s)
@@ -175,13 +209,17 @@ def getTree(root, space=0, let="r - "):
 def printTree():
     # call the get Node function to print each node
     # and set the root node first.
-    getTree(tree)
+    getTree(MorseTree)
 
-
+def delete_key(key):
+    delete(MorseTree,key)
+# def main():
+#     g = nodes
 
 # print the Morse Binary Tree if called directly
 if __name__ == '__main__':
-    printTree()  
-    # g = Node(2)
-    # insert_node(g,6)
+    printTree()
+    delete(MorseTree, "T")
+    printTree()
+
 
