@@ -1,6 +1,8 @@
 # morse_code
 Morse Code Encoder and Decoder Using Binary Tree
 
+The morse code binary tree in the program is explicitl
+
 To make use of the available functions, morse module has to be import into the main environment.
 
 ```python
@@ -34,3 +36,4 @@ The Output is
 ```shell
 -.--. ..--. . -..- - .-. .- ---..- -.---.
 ```
+
