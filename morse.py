@@ -214,7 +214,7 @@ if __name__ == '__main__':
     # printTree()
     # delete(MorseTree, "T")
     # printTree()
-    text = encode('(?extra:)')
+    text = encode('usdt')
     print(text)
 
 
