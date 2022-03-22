@@ -108,10 +108,8 @@ nexts = []
 # instantiate the current MorseTree
 node = MorseTree
 # iterating the keys and inserting it into the binary MorseTree
-for l in letters:
-    if l.islower():
-        l = l.upper()
-
+for l in letters.casefold():
+    
     if node.left == None:
         node.left = Node(l)
     else:
@@ -144,12 +142,8 @@ def morse_encode(text, root, values):
             values.insert(0,"-")
             root = root.right
             return True
-'''
-    Decoding function which calls the recursive morse_encode function
-    and then concatenate the string
-'''
+        
 def encode(text):
-
     values = []
     for char in text.casefold():
         value = []
@@ -158,7 +152,6 @@ def encode(text):
         values.append("".join(value))
 
     return " ".join(values)
-
 '''
     Function to decode string text
     text - str | text to decode
@@ -218,8 +211,10 @@ def delete_key(key):
 
 # print the Morse Binary Tree if called directly
 if __name__ == '__main__':
-    printTree()
-    delete(MorseTree, "T")
-    printTree()
+    # printTree()
+    # delete(MorseTree, "T")
+    # printTree()
+    text = encode('(?extra:)')
+    print(text)
 
 
