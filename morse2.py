@@ -7,7 +7,7 @@ class TreeNode:
 class BTree(object):
     def __init__(self):
         self.root = None
-        self.COUNT = [2]
+        self.index = [2]
 
     def insert_node(self, node, data, code):
         # check whether there is a sign
@@ -28,6 +28,7 @@ class BTree(object):
     def insert(self, data, code):
         self.root = self.insert_node(self.root, data, code)
 
+    # function to print tree in a pre-order tranversal order
     def preorder(self, node, indent=0, prefix="r - "):
         '''
             Function to print tree in Pre Order Transversal Order
@@ -35,8 +36,8 @@ class BTree(object):
         if node == None:
             return
     
-        indent += self.COUNT[0]
-        for l in range(self.COUNT[0], indent):
+        indent += self.index[0]
+        for l in range(self.index[0], indent):
             print(end = " ")
         # print the node value with appropriate indentation
         print(prefix + node.data)
@@ -50,7 +51,11 @@ class BTree(object):
         Function to call to print Morse Binary Tree in PREORDER STACK
         '''
         self.preorder(self.root)
-    def text_encode(self,data, node, encodeList):
+    # ENCODING FUNCTION
+    def text_encode(self,data: str, node, encodeList) -> bool:
+        '''
+            Function to encode data given with the provided morse node
+        '''
         if node == None:
             return False
         elif node.data == data:
@@ -65,7 +70,7 @@ class BTree(object):
                 node = node.right
                 return True
     
-    def encode(self, msg: str):
+    def encode(self, msg: str) -> str:
         '''
             Function to Encode provided message and 
             return morse code
@@ -79,6 +84,34 @@ class BTree(object):
             encodedList.append("".join(mlist))
         # convert the encoded list to string and return it
         return " ".join(encodedList)
+    
+    def decode_morse(self, msg: str, tree)-> str:
+        output = ""
+        
+        # split the string with whitespace delimeter into a lists
+        wordLists = msg.split(' ')
+        
+        
+        for code in wordLists:
+            # get the current tree node
+            current = tree
+            # iterate each character in a word ('.' or '-')
+            for char in code:
+                if char == '.':
+                    current = current.left
+                else:
+                    current = current.right
+            output = output + current.data
+
+        # return the decoded string as output
+        return output
+
+    # decoding function with the morse_code tree
+    def decode(self, msg: str)-> str:
+        # call the decoding function and assign morse tree as default
+        decoded_str = self.decode_morse(msg, self.root)
+
+        return decoded_str
 
 '''
  Create and Initiate Morse Code Tree
@@ -219,19 +252,35 @@ mbt.insert("", "----..")
 mbt.insert("", "----.-")
 mbt.insert("", "-----.")
 mbt.insert("", "------")
+# 7TH LEVEL
+mbt.insert("", ".......")
+mbt.insert("", "......-")
+mbt.insert("", ".....-.")
+mbt.insert("", ".....--")
+mbt.insert("", "....-..")
+mbt.insert("", "....-.-")
+mbt.insert("", "....--.")
+mbt.insert("", "....---")
+mbt.insert("", "...-...")
+mbt.insert("$", "...-..-")
 
 
 def encode(msg: str) -> str:
     return mbt.encode(msg)
 
-def show():
+def decode(msg: str) -> str:
+    return mbt.decode(msg)
+
+#call the Binary Tree show function
+def show() -> None:
     mbt.show()
 
-if __name__ == '__main__':
-    
 
-    # **************_****\"**.********\'**-********;!*)***¡*,****:****************$
-    # 7TH LEVEL
+
+if __name__ == '__main__':
+    '''
+    Run these codes if called directly
+    '''
     show()
     print("===========================================")
     r = encode('USAb')
