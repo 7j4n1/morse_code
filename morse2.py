@@ -50,8 +50,35 @@ class BTree(object):
         Function to call to print Morse Binary Tree in PREORDER STACK
         '''
         self.preorder(self.root)
+    def text_encode(self,data, node, encodeList):
+        if node == None:
+            return False
+        elif node.data == data:
+            return True
+        else:
+            if self.text_encode(data, node.left, encodeList) == True:
+                encodeList.insert(0,".")
+                node = node.left
+                return True
+            elif self.text_encode(data, node.right, encodeList) == True:
+                encodeList.insert(0,"-")
+                node = node.right
+                return True
+    
+    def encode(self, msg: str):
+        '''
+            Function to Encode provided message and 
+            return morse code
 
-
+            msg: str -> return encoded string
+        '''
+        encodedList = []
+        for letter in msg.upper():
+            mlist = []
+            self.text_encode(letter, self.root, mlist)
+            encodedList.append("".join(mlist))
+        # convert the encoded list to string and return it
+        return " ".join(encodedList)
 if __name__ == '__main__':
     mbt = BTree()
     # 1ST LEVEL
@@ -124,7 +151,7 @@ if __name__ == '__main__':
     mbt.insert("0", "-----")
 
     # 6TH LEVEL
-    
+
     # 7TH LEVEL
 
     mbt.show()
