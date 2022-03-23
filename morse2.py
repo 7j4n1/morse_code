@@ -36,30 +36,56 @@ class BTree(object):
         return current
     
     # Function to delete node from Binary Tree and return the node
-    def delete_node(self, tree, value):
-        if tree is None:
-            return tree
+    # def delete_node(self, tree, value):
+    #     if tree is None:
+    #         return tree
         
-        if value < tree.value:
-            tree.left = self.delete_node(tree.left, value)
-        elif value > tree.value:
-            tree.right = self.delete_node(tree.right, value)
-        else:
-            if tree.left is None:
-                tHold = tree.right
-                tree = None
-                return tHold
-            elif tree.right is None:
-                tHold = tree.left
-                tree = None
-                return tHold
+    #     if value < tree.data:
+    #         tree.left = self.delete_node(tree.left, value)
+    #     elif value > tree.data:
+    #         tree.right = self.delete_node(tree.right, value)
+    #     else:
+    #         if tree.left is None:
+    #             tHold = tree.right
+    #             tree = None
+    #             return tHold
+    #         elif tree.right is None:
+    #             tHold = tree.left
+    #             tree = None
+    #             return tHold
             
-            tHold = self.findPredecessor(tree.right)
-            tree.value = tHold.value
+    #         tHold = self.findPredecessor(tree.right)
+    #         tree.data = tHold.data
 
-            tree.right = self.delete_node(tree.right, tHold.value)
-        # return new node
-        return tree
+    #         tree.right = self.delete_node(tree.right, tHold.data)
+    #     # return new node
+    #     return tree
+    def delete_node(self, node, data):
+        if node == None:
+            return False
+        elif node.data == data:
+            ''' If the Key to be deleted is found, then 
+                check if the there is left or right node i.e Not None
+                If they're None, then delete the Node by setting it to None
+                else, if there's atleast one node, The Morse Binary Tree will set the node data
+                to empty and then return the node
+            '''
+            node.data = ""
+            if node.left:
+                node.data = ""
+            elif node.right:
+                node.data = ""
+            else:
+                node = None
+            return node
+        else:
+            if self.delete_node(node.left, data) == True:
+                node = node.left
+                return True
+            elif self.delete_node(node.right, data) == True:
+                node = node.right
+                return True
+        return node
 
     def delete(self, key):
         self.root = self.delete_node(self.root, key)
@@ -68,26 +94,22 @@ class BTree(object):
         If found, return True 
         else return False
     '''
-    def search(self, tree, data):
-        if tree is None:
+    def search(self, node, data):
+        if node == None:
             return False
+        elif node.data == data:
+            return True
         else:
-            current = tree
-            while True:
-                if data < current.value:
-                    if current.value == data:
-                        return True
-                    if current.left is None:
-                        return False
-                    else:
-                        current = current.left
-                if data >= current.value:
-                    if current.value == data:
-                        return True
-                    if current.right is None:
-                        return False
-                    else:
-                        current = current.right
+            if self.search(node.left, data) == True:
+                # encodeList.insert(0,".")
+                node = node.left
+                return True
+            elif self.search(node.right, data) == True:
+                # encodeList.insert(0,"-")
+                node = node.right
+                return True
+        return False
+            
     # find the data value in thr tree node
     def find(self, key):
         return self.search(self.root, key)
@@ -341,14 +363,19 @@ def decode(msg: str) -> str:
 #call the Binary Tree show function
 def show() -> None:
     mbt.show()
-
+# call the Find function and return True if found or False
+def find(key):
+    return mbt.find(key)
 
 
 if __name__ == '__main__':
     '''
     Run these codes if called directly
     '''
-    show()
+    # show()
     print("===========================================")
     r = encode('USAb')
     print(r)
+    print(find('/'))
+    mbt.delete("$")
+    show()
