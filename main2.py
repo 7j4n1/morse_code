@@ -1,7 +1,8 @@
-import morse
+import morse2 as morse
 
 if __name__ == "__main__":
-    e = morse.encode('test')
+    print(morse.find(")"))
+    e = morse.encode('morse_code')
     print('%s' % e)
     d = morse.decode(e)
     assert morse.encode('us') == '..- ...', "Should be ..-"

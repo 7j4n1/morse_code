@@ -1,94 +1,145 @@
-# morse_code
-Morse Code Encoder and Decoder Using Binary Tree
 
-The morse code binary tree in the program is explicitly build inside the morse module.
+Morse Code translator with Binary Tree
 
-To make use of the available functions, morse module has to be import into the main environment.
+Morse code is an approach to transmitting text information as a series of on-off-tones across a telegraph wire. So Morse code translator to implement encoding and decoding of set of strings.
+
+The Morse Tree is implemented to have some basic operations involved in Binary Tree such as:
+> - insertion 
+> - find 
+> - delete 
+> - print
+
+Binary Tree Class is provided to build a morse tree with all the available operations mentioned above.
+
+### USAGE
+
+import the morse module file using the keyword "import" to make TreeNode(), BTree() and Morse Tree (with operations available)
 
 ```python
 import morse
 ```
-the morse tree nodes can be called using the following method.
-```
-morse.tree
-```
-It points to the morse binary tree
 
-### Instantiate
-This program provides three functions:
+### To Initiate a new Tree and insert node into the tree
 
-### Encoder
-- The encoder function which encode the given string to morse code.
-> For example
+
 ```python
 import morse
 
-encoded_text = morse.encode('usd')
-print("Morse Code: " + encoded_text)
+new_tree = morse.BTree() # It instantiate the tree with START
+new_tree.insert("E", ".") # Morse tree uses either '.' or '-' for insertion
+new_tree.insert("T", "-") # insert E to the left node and T to the right
+
+```
+### To print the tree
+
+> The class BTree is provided with show function which can be called
+
+```python
+new_tree.show() # To display the above code written in preorder
+
+```
+> Output of the function
+```shell
+r - START
+  l - E
+  r - T
+```
+### To find a key
+
+> The class BTree is provided with find function which can be called
+
+```python
+result = new_tree.find("T") # To check if key 'T' exists in the tree
+print(result)
+print(new_tree.find("D")) # D does not exist in the Tree
+```
+> Output of the function
+```shell
+True
+False
+```
+
+### To delete a key
+
+> The class BTree is provided with delete function which can be called
+
+```python
+new_tree.delete("E") # which deletes the Node data with E
+new_tree.show()
+
+```
+> Output of the function
+```shell
+r - START
+  l - 
+  r - T
+```
+### HOW TO ENCODE AND DECODE a string using Morse Binary Tree
+### Encode
+- Use the encode function which encode the given morse code to equivalent string.
+
+```python
+import morse
+
+string = morse.encode("hello")
+string2 = morse.encode("assert")
+strin3 = morse.encode("readme")
+
+print('Encode: %s' %s string)
+print('Encode 2: %s' %s string2)
+print('Encode 3: %s' %s string3)
 ```
 The Output of the code is
 ```shell
-Morse Code: ..- ... -..
+Encode: .... . .-.. .-.. ---
+Encode 2: .- ... ... . .-. -
+Encode 3: .-. . .- -.. -- .
 ```
-> Example 2
-Encoding of extra symbols
+> Example of Decoding
+### Decoding of extra symbols
 ```python
 import morse
 
-new_text = morse.encode('(?extra:)')
-print(new_text)
+dcode1 = morse.decode("..--. .-. . .- -.. -- . -.-.--")
+dcode2 = morse.decode("-- --- .-. ... . ..--.- -.-. --- -.. .")
+print(dcode1)
+print(dcode2)
 ```
 The Output is
 ```shell
--.--. ..--. . -..- - .-. .- ---..- -.---.
+?readme!
+morse_code
 ```
-
-### Decoder
-- The decoder function which decodes the given morse code to equivalent string.
-> For example
+### Print Morse Binary Tree
+To show the full 7 levels of Morse BT
 ```python
 import morse
 
-decoded_text = morse.decode("..- ... -.. -")
-print("String: " + decoded_text)
+morse.show()
 ```
-The Output of the code is
-```shell
-String: usdt
-```
-> Example 2
-Decoding of extra symbols
+It would print the tree in pre-order
+
+### Find a key in Morse Binary Tree
+To find a string in the full 7 levels of Morse BT
 ```python
 import morse
 
-new_text = morse.decode("-.--. ..--. . -..- - .-. .- ---..- -.---.")
-print(new_text)
+morse.find(")")
 ```
 The Output is
 ```shell
-(?extra:)
+True
 ```
-### Print Morse Binary Tree Stack
-call the function after importing
-```python
-morse.printTree()
-```
-It would print the stack directly
 
-### or to print a  stack with any node
-call the function and give the node to print the tree
+### Delete a key in Morse Binary Tree
+To delete Morse BT
 ```python
 import morse
 
-node = morse.Node(1)
-node = morse.insert_node(node, 2);
-node = morse.insert_node(node, 3);
-
-morse.getTree(node)
+morse.delete(")")
+morse.show() # show the stack after deletion
 ```
-The following output would be
+The Output is
 ```shell
-r - 1
-   l - 2
-   r - 3
+# If found, it would be deleted and return the entire node
 ```
