@@ -89,5 +89,42 @@ if __name__ == '__main__':
     mbt.insert("", "---.")
     mbt.insert("", "----")
 
+    # 5TH LEVEL
+    mbt.insert("5", ".....")
+    mbt.insert("4", "....-")
+    mbt.insert("", "...-.")
+    mbt.insert("3", "...--")
+    mbt.insert("", "..-..")
+    mbt.insert("", "..-.-")
+    mbt.insert("", "..--.")
+    mbt.insert("2", "..---")
+    mbt.insert("", ".-...")
+    mbt.insert("", ".-..-")
+    mbt.insert("+", ".-.-.")
+    mbt.insert("", ".-.--")
+    mbt.insert("", ".--..")
+    mbt.insert("", ".--.-")
+    mbt.insert("", ".---.")
+    mbt.insert("1", ".----")
+    mbt.insert("6", "-....")
+    mbt.insert("=", "-...-")
+    mbt.insert("/", "-..-.")
+    mbt.insert("", "-..--")
+    mbt.insert("", "-.-..")
+    mbt.insert("", "-.-.-")
+    mbt.insert("", "-.--.")
+    mbt.insert("", "-.---")
+    mbt.insert("7", "--...")
+    mbt.insert("", "--..-")
+    mbt.insert("", "--.-.")
+    mbt.insert("", "--.--")
+    mbt.insert("8", "---..")
+    mbt.insert("", "---.-")
+    mbt.insert("9", "----.")
+    mbt.insert("0", "-----")
+
+    # 6TH LEVEL
+    
+    # 7TH LEVEL
 
     mbt.show()
