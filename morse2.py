@@ -38,8 +38,8 @@ class BTree(object):
         indent += self.COUNT[0]
         for l in range(self.COUNT[0], indent):
             print(end = " ")
-        # print the node value
-        print(node.data)
+        # print the node value with appropriate indentation
+        print(prefix + node.data)
         # process the left child(s)
         self.preorder(node.left, indent,prefix="l - ")
         # process right child(s)
@@ -88,5 +88,6 @@ if __name__ == '__main__':
     mbt.insert("Q", "--.-")
     mbt.insert("", "---.")
     mbt.insert("", "----")
+
 
     mbt.show()
