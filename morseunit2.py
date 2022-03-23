@@ -6,14 +6,14 @@ class TestMorse(unittest.TestCase):
         self.assertEqual( morse.encode('morse'), '-- --- .-. ... .')
         self.assertEqual( morse.encode('binary'), '-... .. -. .- .-. -.--')
         self.assertEqual( morse.encode('full'), '..-. ..- .-.. .-..')
-        self.assertEqual( morse.encode('encoder'), '. -. -.-. --- -..')
+        self.assertEqual( morse.encode('encoder'), '. -. -.-. --- -..') #fail
         self.assertEqual( morse.encode('more'), '-- .-. ... .')
     
     def test_decodemorse(self):
         self.assertEqual( morse.decode("-- --- .-. ... ."), 'morse')
         self.assertEqual( morse.decode(". -. -.-. --- -.. . .-."), 'encoder')
         self.assertEqual( morse.decode("-- ---"), 'mo')
-        self.assertEqual( morse.decode("..-.."), 'g')
+        self.assertEqual( morse.decode("..-.."), 'g') # fail
         self.assertEqual( morse.decode("- . ... -"), 'test')
 
     def test_emptytree(self):
