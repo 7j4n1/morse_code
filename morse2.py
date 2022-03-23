@@ -187,7 +187,7 @@ class BTree(object):
                     current = current.left
                 else:
                     current = current.right
-            output = output + current.data
+            output = output + current.data.casefold()
 
         # return the decoded string as output
         return output
