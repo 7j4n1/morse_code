@@ -28,6 +28,40 @@ class BTree(object):
     def insert(self, data, code):
         self.root = self.insert_node(self.root, data, code)
 
+    def findPredecessor(self, node):
+        current = node
+
+        while (current.left is not None):
+            current = current.left
+        return current
+    
+    # Function to delete node from Binary Tree
+    def delete(self, tree, key):
+        if tree is None:
+            return tree
+        
+        if key < tree.value:
+            tree.left = self.delete(tree.left, key)
+        elif key > tree.value:
+            tree.right = self.delete(tree.right, key)
+        else:
+            if tree.left is None:
+                tHold = tree.right
+                tree = None
+                return tHold
+            elif tree.right is None:
+                tHold = tree.left
+                tree = None
+                return tHold
+            
+            tHold = self.findPredecessor(tree.right)
+            tree.value = tHold.value
+
+            tree.right = self.delete(tree.right, tHold.value)
+        
+        return tree
+
+
     # function to print tree in a pre-order tranversal order
     def preorder(self, node, indent=0, prefix="r - "):
         '''
