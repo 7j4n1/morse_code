@@ -35,15 +35,15 @@ class BTree(object):
             current = current.left
         return current
     
-    # Function to delete node from Binary Tree
-    def delete(self, tree, key):
+    # Function to delete node from Binary Tree and return the node
+    def delete_node(self, tree, value):
         if tree is None:
             return tree
         
-        if key < tree.value:
-            tree.left = self.delete(tree.left, key)
-        elif key > tree.value:
-            tree.right = self.delete(tree.right, key)
+        if value < tree.value:
+            tree.left = self.delete_node(tree.left, value)
+        elif value > tree.value:
+            tree.right = self.delete_node(tree.right, value)
         else:
             if tree.left is None:
                 tHold = tree.right
@@ -57,10 +57,40 @@ class BTree(object):
             tHold = self.findPredecessor(tree.right)
             tree.value = tHold.value
 
-            tree.right = self.delete(tree.right, tHold.value)
-        
+            tree.right = self.delete_node(tree.right, tHold.value)
+        # return new node
         return tree
 
+    def delete(self, key):
+        self.root = self.delete_node(self.root, key)
+    '''
+        Function to search for a data in the node
+        If found, return True 
+        else return False
+    '''
+    def search(self, tree, data):
+        if tree is None:
+            return False
+        else:
+            current = tree
+            while True:
+                if data < current.value:
+                    if current.value == data:
+                        return True
+                    if current.left is None:
+                        return False
+                    else:
+                        current = current.left
+                if data >= current.value:
+                    if current.value == data:
+                        return True
+                    if current.right is None:
+                        return False
+                    else:
+                        current = current.right
+    # find the data value in thr tree node
+    def find(self, key):
+        return self.search(self.root, key)
 
     # function to print tree in a pre-order tranversal order
     def preorder(self, node, indent=0, prefix="r - "):
@@ -150,8 +180,11 @@ class BTree(object):
 '''
  Create and Initiate Morse Code Tree
 '''
+# 0 LEVEL is constant
 mbt = BTree()
+
 # Add All Levels required
+
 # 1ST LEVEL
 mbt.insert("E", ".")
 mbt.insert("T", "-")
