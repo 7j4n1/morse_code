@@ -1,0 +1,77 @@
+Assessment report  [-]
+--------------------------------
+[-] TEST 1
+--------------------------------
+[-] Your output is incorrect.
+
+Your program tested with:
+
+Input File Client:
+
+1000100101001001011100100000101001010010011001110100001110011111001110010000010100111000001101100110100110111010010000010011111010011010000010100101010101100110010001011010011
+Input File Server:
+
+15
+D 68
+R 82
+. 46
+  32
+I 73
+N 78
+C 67
+O 79
+S 83
+A 65
+Y 89
+: 58
+U 85
+L 76
+E 69
+
+YOUR OUTPUT:
+
+Error connecting to server
+
+
+CORRECT OUTPUT:
+
+Decompressed message: DR. RINCON SAYS: OS RULES
+
+--------------------------------
+[-] TEST 2
+--------------------------------
+[-] Your output is incorrect.
+
+Your program tested with:
+
+Input File Client:
+
+000000010010000000110100010001010110001100100111100010011010101100111100011011001100
+Input File Server:
+
+13
+C 0
+O 1
+S 2
+  3
+3 4
+6 5
+0 6
+P 7
+R 8
+I 9
+N 10
+G 11
+2 12
+
+YOUR OUTPUT:
+
+Error connecting to server
+
+
+CORRECT OUTPUT:
+
+Decompressed message: COSC 3360 SPRING 2022
+
+--------------------------------
+[+] PROPOSED GRADE = 0

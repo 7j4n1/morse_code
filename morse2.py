@@ -8,6 +8,8 @@ class BTree(object):
     def __init__(self):
         self.root = None
         self.index = [2]
+        self.tree_nodes = []
+        self.tree_list = []
 
     def insert_node(self, node, data, code):
         # check whether there is a sign
@@ -16,13 +18,18 @@ class BTree(object):
         
         if node == None:
             node = TreeNode("START")
+            
+            # self.tree_nodes.append(node.data)
         
         if code[0] == '-':
             # extract the rest of the sign
+            # self.tree_nodes.append(node.right.data)
             node.right = self.insert_node(node.right, data, code[1:])
+            
         elif code[0] == '.':
             node.left = self.insert_node(node.left, data, code[1:])
-
+            # self.tree_nodes.append(node.left.data)
+        
         return node
     # function to call to insert data into Morse Tree
     def insert(self, data, code):
@@ -131,6 +138,18 @@ class BTree(object):
         self.preorder(node.left, indent,prefix="l - ")
         # process right child(s)
         self.preorder(node.right, indent, prefix="r - ")
+    def tobinary(self,node):
+        if node == None:
+            return
+        
+        
+        self.tobinary(node.left)
+        
+        self.tobinary(node.right)
+        print(node.data,end=",")
+    
+    def show2(self):
+        print(self.tree_nodes)
 
     def show(self):
         '''
@@ -199,6 +218,28 @@ class BTree(object):
 
         return decoded_str
 
+    def to_array(self):
+        """
+        Create and fill a list with the data contained in this
+        tree. The elements of the returned list must be in the same
+        order as they are found during an inorder traversal, which
+        means the numbers should be in non-decreasing order.
+        """
+        if self.root is None:
+            return []
+        else:
+            self.tree_list  = []
+            self.tree_nodes = []
+            self.search1(self.root)
+            return self.tree_list
+
+    def search1(self, node):
+        if node != None:
+            self.tree_list.append(node.data)
+            self.tree_nodes.append(node)
+            self.search1(node.left)
+            self.search1(node.right)
+            
 '''
  Create and Initiate Morse Code Tree
 '''
@@ -372,10 +413,10 @@ if __name__ == '__main__':
     '''
     Run these codes if called directly
     '''
-    # show()
+    print(mbt.to_array())
     print("===========================================")
     r = encode('USAb')
     print(r)
-    print(find('/'))
-    mbt.delete("$")
+    # print(find('/'))
+    # mbt.delete("$")
     show()
